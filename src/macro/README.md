@@ -5,14 +5,14 @@ The DoNothing micro benchmark workload which is targeted to test the consensus l
 
 The driver in `kvstore` directory provides the following workloads:
 
-* KVStore: for Ethereum, Parity , Quorum and Hyperledger
+* KVStore: for Ethereum, Parity , Quorum , Hyperledger and EOS
 
   Usage example:
   ```
   ./driver -db parity -threads 1 -P workloads/workloada.spec -txrate 5 -endpoint localhost:8545 -wl ycsb -wt 20
   ```
 
-* DoNothing: for Ethereum, Parity , Quorum and Hyperledger
+* DoNothing: for Ethereum, Parity , Quorum , Hyperledger and EOS
 
   Usage example:
   ```
@@ -21,9 +21,8 @@ The driver in `kvstore` directory provides the following workloads:
 
 The driver in `smallbank` directory provides the following workloads:
 
-* SmallBank: for Ethereum, Parity , Quorum and Hyperledger 
+* SmallBank: for Ethereum, Parity , Quorum , Hyperledger and EOS
 
   Usage example:
   ```
-  ./driver -db ethereum -ops 10000 -threads 4 -txrate 10 -fp stat.txt -endpoint 127.0.0.1:8000 
-  ```
+  ./driver -db eos -ops 10000 -threads 4 -txrate 10 -fp stat.txt -endpoint 127.0.0.1:8000
