@@ -9,3 +9,4 @@ To see more details, please refer to the README file in each individual director
 
 + [ethereum/parity](ethereum/README.md) CPUHeavy driver
 + [hyperledger](hyperledger/README.md) CPUHeavy driver
++ [eos](eos/README.md) CPUHeavy driver

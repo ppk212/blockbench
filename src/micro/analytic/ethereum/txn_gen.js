@@ -10,8 +10,12 @@ var len = accounts.length;
 
 var t = 0;
 
+console.log("Account count = ", len);
+
 function gen_txns() {
-  for (var i = 0; i < TXNS_PER_BLOCK; ++i) {
+	console.log("gen_txns start.");
+
+ for (var i = 0; i < TXNS_PER_BLOCK; ++i) {
     var x = Math.floor(Math.random() * len); 
     var y = Math.floor(Math.random() * len); 
     var val = Math.floor(Math.random() * 100); 
@@ -29,10 +33,11 @@ function gen_txns() {
       console.log(error);
     }
     ++t;
+	 console.log("account[", x, "] send ", val, " to account[", y, "]");  
+	  console.log("generate ", t, " transactions...");
     if (t == INVOKE_TIMES) {
         process.exit();
     }
   }
 }
-
 web3.eth.filter('latest').watch(gen_txns);

@@ -11,3 +11,4 @@ To see more details, please refer to the README file in each individual director
 
 + [ethereum/parity](ethereum/README.md) IOHeavy driver
 + [hyperledger](hyperledger/README.md) IOHeavy driver
++ [eos](eos/README.md) IOHeavy driver

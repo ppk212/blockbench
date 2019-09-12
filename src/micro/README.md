@@ -31,3 +31,4 @@ We provide several workloads to stress the layers in order to understand their i
 ## Node.js dependency libraries 
 * Use `npm install` to install the dependency libraries
 * For all ethereum experiments, use [start_ethereum.sh](ethereum_script/start_ethereum.sh) to start geth client first.
+* For all eos experiments, use [start_eos.sh](eos_script/start_eos.sh) to start nodeos client first.

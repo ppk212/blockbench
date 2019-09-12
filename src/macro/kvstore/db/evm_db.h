@@ -5,11 +5,11 @@
 #include <string>
 #include <unordered_map>
 
-#include "core/evm_utils.h"
-#include "core/properties.h"
-#include "core/utils.h"
-#include "core/timer.h"
-#include "core/db.h"
+#include "../core/evm_utils.h"
+#include "../core/properties.h"
+#include "../core/utils.h"
+#include "../core/timer.h"
+#include "../core/db.h"
 
 namespace ycsbc {
 

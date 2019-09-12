@@ -50,7 +50,8 @@ Go to [micro](src/micro) directory and use `npm install` to install the dependen
 * [Web3.js](https://github.com/ethereum/web3.js/)
 * [zipfian](https://www.npmjs.com/package/zipfian)
 * [bignumber.js](https://www.npmjs.com/package/bignumber.js)
-* [eosio.cdt](https://github.com/EOSIO/eosio.cdt/)
+To install 'eosjs', use 'npm install --save eosjs@16.0.9'
+* [eosjs](https://github.com/EOSIO/eosjs/)
 
 ### Blockchain 
 * [geth(ethereum)](https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Ubuntu)
