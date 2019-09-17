@@ -1,0 +1,148 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.1",
+    "types": [],
+    "structs": [
+        {
+            "name": "almagate",
+            "base": "",
+            "fields": [
+                {
+                    "name": "arg0",
+                    "type": "name"
+                },
+                {
+                    "name": "arg1",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "getbalance",
+            "base": "",
+            "fields": [
+                {
+                    "name": "arg0",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "pair",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "sendpayment",
+            "base": "",
+            "fields": [
+                {
+                    "name": "arg0",
+                    "type": "name"
+                },
+                {
+                    "name": "arg1",
+                    "type": "name"
+                },
+                {
+                    "name": "arg2",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "updatebalance",
+            "base": "",
+            "fields": [
+                {
+                    "name": "arg0",
+                    "type": "name"
+                },
+                {
+                    "name": "arg1",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "updatesaving",
+            "base": "",
+            "fields": [
+                {
+                    "name": "arg0",
+                    "type": "name"
+                },
+                {
+                    "name": "arg1",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "writecheck",
+            "base": "",
+            "fields": [
+                {
+                    "name": "arg0",
+                    "type": "name"
+                },
+                {
+                    "name": "arg1",
+                    "type": "uint64"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "almagate",
+            "type": "almagate",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "getbalance",
+            "type": "getbalance",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sendpayment",
+            "type": "sendpayment",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "updatebalance",
+            "type": "updatebalance",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "updatesaving",
+            "type": "updatesaving",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "writecheck",
+            "type": "writecheck",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "pairs",
+            "type": "pair",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": []
+}
