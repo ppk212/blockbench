@@ -1,0 +1,30 @@
+cd autoboot
+./01_WALLET_IMPORT.sh
+echo "01 Done"
+./02_SYSTEM_ACCOUNTS.sh
+echo "02 Done"
+./03_CONTRACT_ACCOUNTS.sh
+./03_ANALYTIC_ACCOUNTS.sh
+echo "03 Done"
+./04_TOKENMSIG_CONTRACTS.sh
+#./04_HELLO_ACCOUNT.sh
+echo "04 Done"
+./05_EXPERIMENT_CONTRACTS.sh
+echo "05 Done"
+./06_TOKEN_CREATE_ISSUE.sh
+echo "06 Done"
+./07_SYSTEM_CONTRACTS.sh
+echo "07 Done"
+./08_TEST_ACCOUNTS.sh
+echo "08 Done"
+./09_TEST_ACCOUNTS_TRANSFER.sh
+./09_ANALYTIC_ACCOUNTS_TRANSFER.sh
+echo "09 Done"
+./10_REGPRODUCER.sh
+echo "10 Done"
+./11_STAKE_TOKENS.sh
+echo "11 Done"
+./12_VOTE_PRODUCER.sh
+echo "12 Done"
+./13_BUY_RAM.sh
+echo "13 Done"
