@@ -5,7 +5,7 @@
 #
 ###############################################################################
  
-DIR="/home/samuel/blockbench/src/micro/eos_script/node1/Wallet" #수정!!
+DIR="Wallet" #수정!!
 
     if [ -f $DIR"/wallet.pid" ]; then
         pid=$(cat $DIR"/wallet.pid")

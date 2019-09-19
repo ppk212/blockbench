@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-DIR="/home/samuel/blockbench/src/micro/eos_script/node1" #수정!
+DIR="node1" #수정!
 
 
     if [ -f $DIR"/nodeos.pid" ]; then

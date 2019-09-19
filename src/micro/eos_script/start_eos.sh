@@ -1,5 +1,5 @@
 #!/bin/bash
-NODEOSBINDIR="./../../../../eos/build/bin/"
+NODEOSBINDIR="../../../../eos/build/bin/"
 EOS_DATA=./data
 
 ./stop_eos.sh
