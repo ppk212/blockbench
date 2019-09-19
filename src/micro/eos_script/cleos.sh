@@ -1,7 +1,7 @@
 #!/bin/bash
 ###############
 
-NODEOSBINDIR="/home/samuel/eos/build/bin/"
+NODEOSBINDIR="../../../../eos/build/bin/"
 
 WALLETHOST="127.0.0.1"
 NODEHOST="127.0.0.1"
