@@ -13,4 +13,3 @@ INIT_URL="$( jq -r '.INIT_URL' "./00_CONFIG.conf" )"
 
 
 ./cleos.sh system regproducer $INIT_ACCOUNT $INIT_PUB_KEY "$INIT_URL" -p $INIT_ACCOUNT
-

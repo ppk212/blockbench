@@ -3,6 +3,8 @@
 NODEOSBINDIR="../../../../eos/build/bin" #수정!
 DATADIR="node1/" #수정!
 
+./stop_wallet.sh
+./start_wallet.sh
 ./stop.sh
 echo -e "Starting Nodeos \n";
 ulimit -n 65535 #맥북은 코맨트 아웃!
