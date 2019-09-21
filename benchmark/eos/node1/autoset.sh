@@ -1,8 +1,8 @@
 WALLET_PASS="$( jq -r '.WALLET_PASSWD' "00_CONFIG.conf" )"
-INIT_ACCOUNT="$( jq -r '.INIT_ACCOUNT' "./00_CONFIG.conf" )"
-INIT_PUB_KEY="$( jq -r '.INIT_PUB_KEY' "./00_CONFIG.conf" )"
-INIT_PRIV_KEY="$( jq -r '.INIT_PRIV_KEY' "./00_CONFIG.conf" )"
-INIT_URL="$( jq -r '.INIT_URL' "./00_CONFIG.conf" )"
+INIT_ACCOUNT="$( jq -r '.EXP1_ACCOUNT' "./00_CONFIG.conf" )"
+INIT_PUB_KEY="$( jq -r '.EXP1_PUB_KEY' "./00_CONFIG.conf" )"
+INIT_PRIV_KEY="$( jq -r '.EXP1_PRIV_KEY' "./00_CONFIG.conf" )"
+INIT_URL="$( jq -r '.EXP1_URL' "./00_CONFIG.conf" )"
 
 ./cleos.sh wallet open
 ./cleos.sh wallet unlock <<< $WALLET_PASS
