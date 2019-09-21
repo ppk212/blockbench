@@ -22,6 +22,8 @@ echo "New node is running."
 
 echo "Keosd is running in 3000 Port."
 
+./cleos.sh wallet open
+
 #$DATADIR/stop_wallet.sh
 #$NODEOSBINDIR/keosd --data-dir $DATADIR --http-server-address $WALLET_HOST:$WALLET_POST
 
