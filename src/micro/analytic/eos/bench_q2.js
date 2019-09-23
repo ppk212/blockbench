@@ -32,11 +32,11 @@ async function get_total() {
 				var data;
 				data = info.transactions[0];
 	
-				console.log("t = ", t, " / end_block = ", end_block);
+				//console.log("t = ", t, " / end_block = ", end_block);
 				data = info.transactions[0].trx.transaction.actions[0].data.quantity;
 				if(data != null) {
 					var temp = parseInt(String(data).replace(".0000 EOS", ""));
-					console.log("temp : ", temp);
+					//console.log("temp : ", temp);
 					if(temp > max) {
 						max = temp;
 					}
