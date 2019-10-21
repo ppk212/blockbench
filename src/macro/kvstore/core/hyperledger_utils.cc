@@ -140,7 +140,7 @@ int find_tip(std::string json) {
 int get_tip_block_number(const std::string &endpoint) {
   std::string request =
       endpoint.substr(0, endpoint.find("/chaincode")) + CHAIN_END_POINT;
-  return find_tip(RestClient::get(request).body);
+  return 0;// find_tip(RestClient::get(request).body);
 }
 
 std::vector<std::string> find_tx(std::string json) {
@@ -161,7 +161,10 @@ std::vector<std::string> poll_txs_by_block_number(const std::string &endpoint,
                                                   int block_number) {
   std::string request = endpoint.substr(0, endpoint.find("/chaincode")) +
                         BLOCK_END_POINT + "/" + std::to_string(block_number);
-  return find_tx(RestClient::get(request).body);
+  ///////////////tmp
+  std::vector<std::string> ref;
+  ///////////////
+  return ref;//find_tx(RestClient::get(request).body);
 }
 
 }  // HLUtils

@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <restclient-cpp/restclient.h>
+//#include "/home/samuel/restclient-cpp-0.4.4/include/restclient-cpp/restclient.h"
 
 namespace BBUtils {
 
@@ -90,7 +91,7 @@ inline std::string left_padding_string(const std::string &str) {
 inline std::string send_jsonrpc_request(const std::string &endpoint,
                                         const std::string &request_header,
                                         const std::string &request_data) {
-  return RestClient::post(endpoint, request_header, request_data).body;
+  return "";//RestClient::post(endpoint, request_header, request_data).body;
 }
 
 }  // BBUtils

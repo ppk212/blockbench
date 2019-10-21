@@ -35,7 +35,7 @@ def run_exp(n, is_security=False):
       print cmd.format(n,t,n,r)
       os.system(cmd.format(n,t,n,r))
 
-
+print len(sys.argv)
 # python exps.py [-security/-donothing]
 if __name__=='__main__':
   error_msg = 'python exps.py [-security/-donothing] \n'\
@@ -47,6 +47,10 @@ if __name__=='__main__':
   if len(sys.argv)>2:
     print error_msg
   if len(sys.argv)==2 and (not sys.argv in opts):
+    print opts[0]
+    print opts[1]
+    print sys.argv[0]
+    print sys.argv[1]
     print error_msg
 
   cp_cmd='cp env_ycsb.sh env.sh'
