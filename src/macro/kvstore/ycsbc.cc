@@ -20,12 +20,15 @@
 #include "db/db_factory.h"
 #include "db/evm_db.h"
 #include "db/hyperledger_db.h"
+#include "db/eos_db.h"
+
 using namespace std;
 
 const unsigned int BLOCK_POLLING_INTERVAL = 2;
 const unsigned int CONFIRM_BLOCK_LENGTH = 5;
 const unsigned int HL_CONFIRM_BLOCK_LENGTH = 1;
 const unsigned int PARITY_CONFIRM_BLOCK_LENGTH = 1;
+const unsigned int EOS_CONFIRM_BLOCK_LENGTH = 5;
 
 std::unordered_map<string, double> pendingtx;
 // locking the pendingtx queue
@@ -70,6 +73,8 @@ int StatusThread(string dbname, ycsbc::DB *db, double interval,
     confirm_duration = CONFIRM_BLOCK_LENGTH;
   else if (dbname == "parity")
     confirm_duration = PARITY_CONFIRM_BLOCK_LENGTH;
+  else if (dbname == "eos")
+    confirm_duration = EOS_CONFIRM_BLOCK_LENGTH;
   else
     confirm_duration = HL_CONFIRM_BLOCK_LENGTH;
 

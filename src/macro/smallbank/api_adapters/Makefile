@@ -1,4 +1,4 @@
-CC=g++
+CC=g++-7
 CFLAGS=-std=c++11 -c -g -Wall -I../
 LDFLAGS= -lpthread -lrestclient-cpp
 SOURCES=$(wildcard *.cc)

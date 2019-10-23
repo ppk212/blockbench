@@ -1,4 +1,4 @@
-CC=g++
+CC=g++-7
 CFLAGS=-std=c++11 -g -Wall -pthread -I./
 LDFLAGS= -lpthread -lrestclient-cpp -lcurl
 SUBDIRS=api_adapters utils
