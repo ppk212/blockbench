@@ -24,6 +24,9 @@ echo "Keosd is running in 3000 Port."
 
 ./cleos.sh wallet open
 
+sleep 5
+./autoboot.sh
+
 #$DATADIR/stop_wallet.sh
 #$NODEOSBINDIR/keosd --data-dir $DATADIR --http-server-address $WALLET_HOST:$WALLET_POST
 
