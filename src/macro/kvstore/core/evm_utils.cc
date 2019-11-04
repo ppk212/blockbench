@@ -19,7 +19,7 @@ const std::string SEND_TXN_PREFIX =
     "{\
   \"jsonrpc\": \"2.0\", \
   \"method\": \"eth_sendTransaction\", \
-  \"params\": [{ \"gas\": \"100000\", \
+  \"params\": [{ \"gas\": \"0xf4240\", \
                 \"gasPrice\": \"0x0\", \
                 \"from\": \"";
 
@@ -27,7 +27,7 @@ const std::string CALL_PREFIX =
     "{\
   \"jsonrpc\": \"2.0\", \
   \"method\": \"eth_call\", \
-  \"params\": [{ \"gas\": \"100000\",\
+  \"params\": [{ \"gas\": \"0xf4240\",\
                 \"gasPrice\": \"0x0\", \
                 \"from\": \"";
 
@@ -73,9 +73,9 @@ const std::string GET_ACCOUNTS =
 const std::string DEPLOY_SMARTCONTRACT_PREFIX =
     " {\"jsonrpc\":\"2.0\",\
   \"method\":\"eth_sendTransaction\",\
-  \"params\": [{ \"gas\": \"100000\",\
-                \"gasPrice\": \"0x0\", \
-               \"from\": \"";
+  \"params\": [{ \"gas\": \"0xf4240\",\
+ 		 \"gasPrice\": \"0x0\", \
+                 \"from\": \"";
 
 const std::string DEPLOY_DONOTHING_SMARTCONTRACT_SUFFIX =
     "\", \"data\": "
@@ -321,7 +321,11 @@ std::string deploy_smart_contract(const std::string &endpoint,
       txn_data += DEPLOY_DONOTHING_SMARTCONTRACT_SUFFIX;
       break;
   }
+  //std::cout << "endpoint: " << endpoint << std::endl;
+  //std::cout << "REQUEST_HEADERS: " << REQUEST_HEADERS << std::endl;
+  std::cout << "txn_data: " << txn_data << std::endl;
   auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS, txn_data);
+  std::cout << "r: " << r << std::endl;
   return get_json_field(r, "result");
 }
 
