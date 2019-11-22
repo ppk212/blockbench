@@ -9,7 +9,7 @@
             "fields": [
                 {
                     "name": "user",
-                    "type": "name"
+                    "type": "uint64"
                 }
             ]
         },
@@ -19,7 +19,7 @@
             "fields": [
                 {
                     "name": "key",
-                    "type": "name"
+                    "type": "uint64"
                 },
                 {
                     "name": "value",
@@ -33,7 +33,7 @@
             "fields": [
                 {
                     "name": "user",
-                    "type": "name"
+                    "type": "uint64"
                 },
                 {
                     "name": "value",
@@ -56,7 +56,7 @@
     ],
     "tables": [
         {
-            "name": "pairs",
+            "name": "pair",
             "type": "pair",
             "index_type": "i64",
             "key_names": [],

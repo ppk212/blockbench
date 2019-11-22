@@ -252,13 +252,17 @@ std::string compose_get_transaction(const std::string &txn_hash) {
 }
 
 int get_tip_block_number(const std::string &endpoint) {
-  auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS, GET_BLOCKNUMBER);
+	std::string temp = "http://localhost:8011/v1/chain/get_info";
+	std::string r = send_jsonrpc_request(temp, REQUEST_HEADERS, "");
+
+	int start_block_num = r.find("head_block_num");
+	int end_block_num = r.find(",", start_block_num+1); 
+	std::string block_num = r.substr(start_block_num+16, end_block_num-start_block_num-16);
+
   if (r.find("Failed") != std::string::npos) 
     return -1;
 
-  return decode_hex(get_json_field(
-      send_jsonrpc_request(endpoint, REQUEST_HEADERS, GET_BLOCKNUMBER),
-      "result"));
+  return atoi(block_num.c_str());
 }
 
 unsigned int get_txn_block_number(const std::string &endpoint,

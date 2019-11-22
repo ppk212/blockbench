@@ -58,6 +58,15 @@ inline std::string get_json_field(const std::string &json,
                      quote_sign_pos_3 - quote_sign_pos_2 - 1);
 }
 
+inline std::string get_json_field_for_eos(const std::string &json,
+		const std::string &key) {
+	auto key_pos = json.find(key);
+	auto quote_sign_pos_1 = json.find('\"', key_pos + 1);
+	auto quote_sign_pos_2 = json.find('\"', quote_sign_pos_1 + 1);
+	return json.substr(quote_sign_pos_1 + 2,
+			quote_sign_pos_2 - quote_sign_pos_1 - 2);
+}
+
 inline std::vector<std::string> get_list_field(const std::string &json,
                                                const std::string &key) {
   auto key_pos = json.find(key);

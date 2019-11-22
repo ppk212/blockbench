@@ -243,8 +243,13 @@ std::string compose_read(const std::string &key,
 std::string compose_write(const std::string &key, const std::string &val,
                           const std::string &from_address,
                           const std::string &to_address) {
-  return SEND_TXN_PREFIX + from_address + MIDDLE_PART_1 + to_address +
+	std::string temp = SEND_TXN_PREFIX + from_address + MIDDLE_PART_1 + to_address +
          MIDDLE_PART_2 + encode_set(key, val) + SEND_TXN_SUFFIX;
+
+	//std::cout << "temp : " << temp << std::endl;
+	std::cout << "key : " << key << std::endl;
+	std::cout << "val : " << val << std::endl;
+  return temp;
 }
 
 std::string compose_get_transaction(const std::string &txn_hash) {
@@ -352,17 +357,26 @@ std::string submit_set_txn(const std::string &endpoint, const std::string &key,
                            const std::string &val,
                            const std::string &from_address,
                            const std::string &to_address) {
+	auto temp = compose_write(key, val, from_address, to_address);
+
+	//std::cout<<"compose_write : "<<temp<<std::endl;
   auto r =
       send_jsonrpc_request(endpoint, REQUEST_HEADERS,
-                           compose_write(key, val, from_address, to_address));
+                           temp);
   return get_json_field(r, "result");
 }
 
 std::string submit_get_txn(const std::string &endpoint, const std::string &key,
                            const std::string &from_address,
                            const std::string &to_address) {
+	auto temp = compose_read(key, from_address, to_address);
+
+//        std::cout<<"key : "<<key<<std::endl;
+//        std::cout<<"from_address : "<<from_address<<std::endl;
+//        std::cout<<"to_address : "<<to_address<<std::endl;
+//        std::cout<<"compose_read : "<<temp<<std::endl;
   auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS,
-                                compose_read(key, from_address, to_address));
+                                temp);
   return get_json_field(r, "result");
 }
 

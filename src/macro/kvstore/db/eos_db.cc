@@ -8,8 +8,7 @@ using namespace BBUtils::EOSUtils;
 
 namespace ycsbc {
 
-EOSDB::EOSDB(const string &endpoint,
-             const string &wl_name, unsigned deploy_wait_sec)
+EOSDB::EOSDB(const string &endpoint, const string &wl_name, unsigned deploy_wait_sec)
     : endpoint_(endpoint) {
   if (wl_name == "ycsb") {
     sctype_ = BBUtils::SmartContractType::KVStore;
@@ -18,12 +17,15 @@ EOSDB::EOSDB(const string &endpoint,
   } else {
     sctype_ = BBUtils::SmartContractType::DoNothing;
   }
-  from_address_ = get_from_address(endpoint_);
-  auto receipt = deploy_smart_contract(endpoint_, from_address_, sctype_);
-  std::this_thread::sleep_for(std::chrono::seconds(deploy_wait_sec));
-  to_address_ = lookup_smart_contract_address_or_die(endpoint_, receipt);
-  cout << "to address: " << to_address_ << endl;
-  cout << "Smart contract " + wl_name + " deploy ready" << endl;
+  from_account_ = "kvstore";
+  cout << "from account: " << from_account_ << endl;
+  cout << "endpoint: " << endpoint_ << endl;
+  auto receipt = "kvstore";
+
+  //std::this_thread::sleep_for(std::chrono::seconds(deploy_wait_sec));
+  //to_address_ = lookup_smart_contract_address_or_die(endpoint_, receipt);
+  //cout << "to address: " << to_address_ << endl;
+  //cout << "Smart contract " + wl_name + " deploy ready" << endl;
 }
 
 /// ignore table
@@ -34,8 +36,8 @@ int EOSDB::Read(const string &table, const string &key,
   double start_time = utils::time_now();
   std::string txn_hash =
       (sctype_ == BBUtils::SmartContractType::DoNothing)
-          ? submit_do_nothing_txn(endpoint_, from_address_, to_address_)
-          : submit_get_txn(endpoint_, key, from_address_, to_address_);
+          ? submit_do_nothing_txn(endpoint_, from_account_, to_account_)
+          : submit_get_txn(endpoint_, key, from_account_, to_account_);
   txlock_->lock();
   (*pendingtx_)[txn_hash] = start_time;
   txlock_->unlock();
@@ -54,8 +56,8 @@ int EOSDB::Update(const string &table, const string &key,
   double start_time = utils::time_now();
   std::string txn_hash =
       (sctype_ == BBUtils::SmartContractType::DoNothing)
-          ? submit_do_nothing_txn(endpoint_, from_address_, to_address_)
-          : submit_set_txn(endpoint_, key, val, from_address_, to_address_);
+          ? submit_do_nothing_txn(endpoint_, from_account_, to_account_)
+          : submit_set_txn(endpoint_, key, val, from_account_, to_account_);
   txlock_->lock();
   (*pendingtx_)[txn_hash] = start_time;
   txlock_->unlock();

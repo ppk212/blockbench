@@ -31,12 +31,12 @@ DB* DBFactory::CreateDB(utils::Properties& props) {
     int deploy_wait = stoi(props.GetProperty("deploy_wait", "20"));
     string wl_name = props.GetProperty("workload", "donothing");
     return new EVMDB(endpoint, props["dbname"], wl_name, deploy_wait);
-  } /*else if (props["dbname"] == "eos") {
-	const string endpoint = props["endpoint"];
-	int deploy_wait = stoi(props.GetProperty("deploy_wait", "20"));
-	string wl_name = props.GetProperty("workload", "donothing");
-	return new EOSDB(endpoint, wl_name, deploy_wait);
-  }*/ else {
+  } else if (props["dbname"] == "eos") {
+    const string endpoint = props["endpoint"];
+    int deploy_wait = stoi(props.GetProperty("deploy_wait", "20"));
+    string wl_name = props.GetProperty("workload", "donothing");
+    return new EOSDB(endpoint, wl_name, deploy_wait);
+  } else {
     return NULL;
   }
 }

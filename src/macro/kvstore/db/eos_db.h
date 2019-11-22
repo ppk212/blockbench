@@ -1,5 +1,5 @@
-#ifndef BLOCKBENCH_EVMDB_H_
-#define BLOCKBENCH_EVMDB_H_
+#ifndef BLOCKBENCH_EOSDB_H_
+#define BLOCKBENCH_EOSDB_H_
 
 #include <iostream>
 #include <string>
@@ -50,7 +50,7 @@ class EOSDB : public DB {
   std::unordered_map<std::string, double> *pendingtx_;
   SpinLock *txlock_;
 
-  std::string from_address_, to_address_, endpoint_;
+  std::string from_account_, to_account_, endpoint_;
   std::vector<std::string> poll_tx_by_hash(std::string block_hash);
 
   BBUtils::SmartContractType sctype_;
@@ -58,4 +58,4 @@ class EOSDB : public DB {
 
 }  // ycsbc
 
-#endif  // BLOCKBENCH_EVMDB_H_
+#endif  // BLOCKBENCH_EOSDB_H_
