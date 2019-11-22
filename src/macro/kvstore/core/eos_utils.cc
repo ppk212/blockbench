@@ -1,5 +1,6 @@
 #include "eos_utils.h"
 #include <iostream>
+#include <algorithm>
 
 namespace BBUtils {
 namespace EOSUtils {
@@ -290,18 +291,22 @@ std::vector<std::string> poll_txs_by_block_hash(const std::string &endpoint,
 
 std::vector<std::string> poll_txs_by_block_number(const std::string &endpoint,
                                                   int block_number) {
-  std::string request = GET_BLOCK_BY_NUMBER_PREFIX +
-                        ("0x" + encode_hex(block_number)) +
-                        GET_BLOCK_BY_NUMBER_SUFFIX;
+  std::string temp = "http://localhost:8011/v1/chain/get_block";
+  std::string data = "\'{\"block_num_or_id\":\""+std::to_string(block_number)+"\"}\'";
+  auto r = send_jsonrpc_request(temp, REQUEST_HEADERS, data);
 
-  auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS, request);
+  int count = 0;
 
-  std::vector<std::string> ret = get_list_field(r, "transactions");
-  std::vector<std::string> uncles = get_list_field(r, "uncles");
-  for (std::string uncle : uncles) {
-    std::vector<std::string> uncletxs = poll_txs_by_block_hash(endpoint, uncle);
-    for (std::string tx : uncletxs) ret.push_back(tx);
+  if(r.find("trx") != 18446744073709551615) {
+	  count++;
   }
+  std::string trx = std::to_string(count) + "transactions";
+  std::vector<std::string> ret;
+  
+  for(int i=0;i<count;i++) {
+	  ret.push_back("tx"+std::to_string(i+1));
+  }
+
   return ret;
 }
 

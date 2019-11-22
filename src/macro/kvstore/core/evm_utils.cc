@@ -247,8 +247,8 @@ std::string compose_write(const std::string &key, const std::string &val,
          MIDDLE_PART_2 + encode_set(key, val) + SEND_TXN_SUFFIX;
 
 	//std::cout << "temp : " << temp << std::endl;
-	std::cout << "key : " << key << std::endl;
-	std::cout << "val : " << val << std::endl;
+	//std::cout << "key : " << key << std::endl;
+	//std::cout << "val : " << val << std::endl;
   return temp;
 }
 
@@ -301,8 +301,12 @@ std::vector<std::string> poll_txs_by_block_number(const std::string &endpoint,
   std::vector<std::string> uncles = get_list_field(r, "uncles");
   for (std::string uncle : uncles) {
     std::vector<std::string> uncletxs = poll_txs_by_block_hash(endpoint, uncle);
-    for (std::string tx : uncletxs) ret.push_back(tx);
+    for (std::string tx : uncletxs) {
+	    std::cout << "tx : " << tx << std::endl;
+	    ret.push_back(tx);
+    }
   }
+  //std::cout << "ret count : " << ret.size() << std::endl;
   return ret;
 }
 
