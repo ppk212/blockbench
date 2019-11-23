@@ -1,6 +1,7 @@
 #include "eos_utils.h"
 #include <iostream>
 #include <algorithm>
+#include <stdio.h>
 
 namespace BBUtils {
 namespace EOSUtils {
@@ -357,10 +358,34 @@ std::string submit_set_txn(const std::string &endpoint, const std::string &key,
                            const std::string &val,
                            const std::string &from_address,
                            const std::string &to_address) {
-  auto r =
+  //auto r =
       send_jsonrpc_request(endpoint, REQUEST_HEADERS,
                            compose_write(key, val, from_address, to_address));
-  return get_json_field(r, "result");
+
+  std::string _key = key.substr(4);
+
+  const std::string priv_cmd = "./push_action_set.sh " + _key + " " + val;
+
+  //const std::string file_name = "push_action_set.sh";
+  //std::cout << "file_name : " << file_name << std::endl;
+
+  const char* cmd = priv_cmd.c_str();
+  FILE *fp;
+  fp = popen(cmd, "r");
+  if(fp == NULL) {
+	return "";
+  }
+  //std::cout << "cmd : " << cmd << std::endl;
+  std::cout << "fp : " << fp << std::endl;
+  
+  //std::string r = std::to_string(fp);
+  //int index = fp.find(":");
+
+  //std::cout << "r : " << r << std::endl;
+
+  pclose(fp);
+
+  return "";
 }
 
 std::string submit_get_txn(const std::string &endpoint, const std::string &key,
