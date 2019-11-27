@@ -1,0 +1,2 @@
+executed transaction: 4bcf924369be1891b40c516b7882e5211622cd2ee616f9d4be1eda383a4eec81  208 bytes  308 us
+warn  2019-11-25T12:19:19.545 cleos     main.cpp:495                  print_result         ] warning: transaction executed locally, but may not be confirmed by the network yet

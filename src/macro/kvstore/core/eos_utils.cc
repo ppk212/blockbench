@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <stdio.h>
+#include <string.h>
 
 namespace BBUtils {
 namespace EOSUtils {
@@ -293,19 +294,36 @@ std::vector<std::string> poll_txs_by_block_hash(const std::string &endpoint,
 std::vector<std::string> poll_txs_by_block_number(const std::string &endpoint,
                                                   int block_number) {
   std::string temp = "http://localhost:8011/v1/chain/get_block";
-  std::string data = "\'{\"block_num_or_id\":\""+std::to_string(block_number)+"\"}\'";
-  auto r = send_jsonrpc_request(temp, REQUEST_HEADERS, data);
+  std::string data = "{\"block_num_or_id\":\""+std::to_string(block_number)+"\"}";
+  std::string r = send_jsonrpc_request(temp, REQUEST_HEADERS, data);
 
   int count = 0;
 
-  if(r.find("trx") != 18446744073709551615) {
-	  count++;
+  const char* result = r.c_str();
+
+  for(int i = 0; i < strlen(result)-5; i++) {
+	  if( result[i] == '\"' &&
+	      result[i+1] == 't' &&
+	      result[i+2] == 'r' &&
+	      result[i+3] == 'x' &&
+	      result[i+4] == '\"' ) {
+		  count++;
+	  }
   }
-  std::string trx = std::to_string(count) + "transactions";
+
+  int trx_index = r.find("trx");
   std::vector<std::string> ret;
-  
-  for(int i=0;i<count;i++) {
-	  ret.push_back("tx"+std::to_string(i+1));
+  std::string str = r;
+
+  if(trx_index > 0) {
+ 	for(int i=0;i<count;i++) {
+	  	trx_index = str.find("trx");
+	  	std::string trx = str.substr( trx_index + 12, 64 );
+		//std::cout << "trx index : " << trx_index << std::endl;
+		//std::cout << "trx : " << trx << std::endl;
+	  	ret.push_back(trx);
+		str = str.substr(trx_index + 5);
+  	}
   }
 
   return ret;
@@ -348,6 +366,7 @@ std::string lookup_smart_contract_address_or_die(const std::string &endpoint,
 std::string submit_do_nothing_txn(const std::string &endpoint,
                                   const std::string &from_address,
                                   const std::string &to_address) {
+	std::cout << "Submit Do nothing IN?" << std::endl;
   auto r =
       send_jsonrpc_request(endpoint, REQUEST_HEADERS,
                            compose_donothing_tx_data(from_address, to_address));
@@ -358,39 +377,43 @@ std::string submit_set_txn(const std::string &endpoint, const std::string &key,
                            const std::string &val,
                            const std::string &from_address,
                            const std::string &to_address) {
-  //auto r =
-      send_jsonrpc_request(endpoint, REQUEST_HEADERS,
-                           compose_write(key, val, from_address, to_address));
-
   std::string _key = key.substr(4);
-
   const std::string priv_cmd = "./push_action_set.sh " + _key + " " + val;
-
-  //const std::string file_name = "push_action_set.sh";
-  //std::cout << "file_name : " << file_name << std::endl;
-
   const char* cmd = priv_cmd.c_str();
   FILE *fp;
+  
   fp = popen(cmd, "r");
   if(fp == NULL) {
 	return "";
   }
-  //std::cout << "cmd : " << cmd << std::endl;
-  std::cout << "fp : " << fp << std::endl;
-  
-  //std::string r = std::to_string(fp);
-  //int index = fp.find(":");
 
-  //std::cout << "r : " << r << std::endl;
+  fp = popen("cat ./stderr.txt", "r");
+
+  std::string result = "";
+  std::array<char, 1000> buffer;
+
+  while (fgets(buffer.data(), 1000, fp) != NULL) {
+        result += buffer.data();
+  }
+  
+  int start = result.find("transaction: ");
+  
+  if(start == -1) {
+	  pclose(fp);
+	  return "";
+  }
+
+  std::string tx_hash = result.substr(start+13, 64);
 
   pclose(fp);
 
-  return "";
+  return tx_hash;
 }
 
 std::string submit_get_txn(const std::string &endpoint, const std::string &key,
                            const std::string &from_address,
                            const std::string &to_address) {
+	std::cout << "submit_get_txn IN?" << std::endl;
   auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS,
                                 compose_read(key, from_address, to_address));
   return get_json_field(r, "result");

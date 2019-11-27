@@ -297,12 +297,13 @@ std::vector<std::string> poll_txs_by_block_number(const std::string &endpoint,
 
   auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS, request);
 
+  //std::cout << "r : " << std::endl;
   std::vector<std::string> ret = get_list_field(r, "transactions");
   std::vector<std::string> uncles = get_list_field(r, "uncles");
   for (std::string uncle : uncles) {
     std::vector<std::string> uncletxs = poll_txs_by_block_hash(endpoint, uncle);
     for (std::string tx : uncletxs) {
-	    std::cout << "tx : " << tx << std::endl;
+	    //std::cout << "tx was pushed back into ret : " << tx << std::endl;
 	    ret.push_back(tx);
     }
   }
@@ -332,9 +333,9 @@ std::string deploy_smart_contract(const std::string &endpoint,
   }
   //std::cout << "endpoint: " << endpoint << std::endl;
   //std::cout << "REQUEST_HEADERS: " << REQUEST_HEADERS << std::endl;
-  std::cout << "txn_data: " << txn_data << std::endl;
+ // std::cout << "txn_data: " << txn_data << std::endl;
   auto r = send_jsonrpc_request(endpoint, REQUEST_HEADERS, txn_data);
-  std::cout << "r: " << r << std::endl;
+  //std::cout << "r: " << r << std::endl;
   return get_json_field(r, "result");
 }
 
@@ -375,6 +376,7 @@ std::string submit_get_txn(const std::string &endpoint, const std::string &key,
                            const std::string &to_address) {
 	auto temp = compose_read(key, from_address, to_address);
 
+	//std::cout << "temp : " << temp << std::endl;
 //        std::cout<<"key : "<<key<<std::endl;
 //        std::cout<<"from_address : "<<from_address<<std::endl;
 //        std::cout<<"to_address : "<<to_address<<std::endl;

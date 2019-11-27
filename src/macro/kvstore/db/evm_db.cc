@@ -41,6 +41,7 @@ int EVMDB::Read(const string &table, const string &key,
       (sctype_ == BBUtils::SmartContractType::DoNothing)
           ? submit_do_nothing_txn(endpoint_, from_address_, to_address_)
           : submit_get_txn(endpoint_, key, from_address_, to_address_);
+  cout << "txn_hash : " << txn_hash << endl;
   txlock_->lock();
   (*pendingtx_)[txn_hash] = start_time;
   txlock_->unlock();

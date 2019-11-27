@@ -20,7 +20,7 @@ EOSDB::EOSDB(const string &endpoint, const string &wl_name, unsigned deploy_wait
   from_account_ = "kvstore";
   cout << "from account: " << from_account_ << endl;
   cout << "endpoint: " << endpoint_ << endl;
-  auto receipt = "kvstore";
+  //auto receipt = "kvstore";
 
   //std::this_thread::sleep_for(std::chrono::seconds(deploy_wait_sec));
   //to_address_ = lookup_smart_contract_address_or_die(endpoint_, receipt);
@@ -34,6 +34,7 @@ EOSDB::EOSDB(const string &endpoint, const string &wl_name, unsigned deploy_wait
 int EOSDB::Read(const string &table, const string &key,
                 const vector<string> *fields, vector<KVPair> &result) {
   double start_time = utils::time_now();
+  std::cout<<"READ IN?"<<std::endl;
   std::string txn_hash =
       (sctype_ == BBUtils::SmartContractType::DoNothing)
           ? submit_do_nothing_txn(endpoint_, from_account_, to_account_)

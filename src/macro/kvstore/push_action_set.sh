@@ -4,4 +4,5 @@
 
 #echo "./cleos.sh push action kvstore set '[$1, \"$2\"]' -p proofer12345"
 
-./cleos.sh push action kvstore set "[$1, \"$2\"]" -p proofer12345
+#./cleos.sh wallet open
+./cleos.sh push action kvstore set "[$1, \"$2\"]" -p proofer12345 2> ./stderr.txt

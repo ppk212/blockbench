@@ -84,24 +84,61 @@ int StatusThread(string dbname, ycsbc::DB *db, double interval,
     if (tip == -1)  // fail
       utils::sleep(interval);
 
+    //cout<<"cur_block_height = " << cur_block_height << endl;
+    //cout << "confirm_duration = " << confirm_duration << endl;
+    //cout << "tip = " << tip << endl;
     while (cur_block_height + confirm_duration <= tip) {
       vector<string> txs = db->PollTxn(cur_block_height);
+      //cout << "txs count : " << txs.size() << std::endl;
       cout << "polled block " << cur_block_height << " : " << txs.size()
            << " txs " << endl;
       cur_block_height++;
       long block_time = utils::time_now();
       txlock.lock();
       for (string tmp : txs) {
-        string s = (dbname == "ethereum" || dbname == "parity")
+	string s = tmp;
+        s = (dbname == "ethereum" || dbname == "parity")
                        ? tmp.substr(1, tmp.length() - 2)  // get rid of ""
                        : tmp;
-        if (pendingtx.find(s) != pendingtx.end()) {
-          txcount++;
-          latency += (block_time - pendingtx[s]);
-          // then remove
-          pendingtx.erase(s);
-        }
-      }
+
+	//if(dbname =="eos") {
+	//	s = "success";
+	//}
+
+	//cout << "s : " << s << endl;
+	//std::cout << "pendingtx count : " << pendingtx.size() << std::endl;
+
+	//cout << "pendingtx.find(s) : " << pendingtx.find(s) << endl;
+	
+	//if(dbname == "eos") {
+	//	txcount++;
+	//	latency += (block_time = pendingtx[s]);
+	//	pendingtx.erase(s);
+	//}
+	
+	if(pendingtx.find(s) != pendingtx.end()) {
+		txcount++;
+		latency += (block_time - pendingtx[s]);
+		pendingtx.erase(s);
+	}
+/////////////////////////////////////////////////////////////////
+//	if(dbname != "eos") {
+//        	if (pendingtx.find(s) != pendingtx.end()) {
+//          		txcount++;
+//          		latency += (block_time - pendingtx[s]);
+//          		// then remove
+//          		pendingtx.erase(s);
+//        	}
+//	}
+//	else {
+//		for(int i = 0; i < txs.size(); i++) {
+//			txcount++;
+//			latency += (block_time - pandingtx["0"]);
+//			pendingtx.erase("0");
+//		}
+//      }
+//////////////////////////////////////////////////////////////////////////////
+	}
       txlock.unlock();
     }
     cout << "In the last " << interval << "s, tx count = " << txcount

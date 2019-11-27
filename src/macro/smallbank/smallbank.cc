@@ -10,6 +10,7 @@
 #include "api_adapters/DB.h"
 #include "api_adapters/SmallBank.h"
 #include "api_adapters/EVMDB.h"
+#include "api_adapters/EOSDB.h"
 #include "utils/generators.h"
 #include "utils/timer.h"
 #include "utils/statistic.h"
@@ -29,6 +30,7 @@ const int HL_CONFIRM_BLOCK_LENGTH = 1;
 const int BLOCK_POLLING_INTERVAL = 2; 
 const int CONFIRM_BLOCK_LENGTH = 5;
 const int PARITY_CONFIRM_BLOCK_LENGTH = 1;
+const int EOS_CONFIRM_BLOCK_LENGTH = 5;
 
 void UsageMessage(const char *command);
 bool StrStartWith(const char *str, const char *pre);
@@ -81,23 +83,26 @@ int StatusThread(DB* sb, string dbname, string endpoint, double interval, int st
     confirm_duration = CONFIRM_BLOCK_LENGTH;
   else if (dbname == "parity")
     confirm_duration = PARITY_CONFIRM_BLOCK_LENGTH;
+  else if (dbname == "eos")
+    confirm_duration = EOS_CONFIRM_BLOCK_LENGTH;
   else
     confirm_duration = HL_CONFIRM_BLOCK_LENGTH;
 
   while(true){
     start_time = time_now(); 
-    int tip = sb->get_tip_block_number(); 
+    int tip = sb->get_tip_block_number();  // change source get_tip_block_number == db->GetTip()
     if (tip==-1) // fail
       sleep(interval); 
     while (cur_block_height + confirm_duration <= tip) {      
-      vector<string> txs = sb->poll_tx(cur_block_height); 
+      vector<string> txs = sb->poll_tx(cur_block_height);   // change source poll_tx == db->PollTxn
       cout << "polled block " << cur_block_height << " : " << txs.size() 
            << " txs " << endl; 
       cur_block_height++;           
       long block_time = time_now(); 
       txlock_.lock();
-      for (string tmp : txs){ 
-        string s = (dbname == "ethereum" || dbname == "parity")
+      for (string tmp : txs){
+	string s = tmp; 
+        s = (dbname == "ethereum" || dbname == "parity")
                       ? tmp.substr(1, tmp.length() - 2)  // get rid of ""
                        : tmp; 
         if (pendingtx.find(s)!=pendingtx.end()){ 
@@ -128,6 +133,8 @@ DB* CreateDB(std::string dbname, std::string endpoint) {
     return SmallBank::GetInstance("SmallbankExample", endpoint); 
   } else if (dbname == "ethereum" || dbname == "parity") {
     return EVMDB::GetInstance(dbname, endpoint); 
+  } else if (dbname == "eos") {
+    return EOSDB::GetInstance(dbname, endpoint);
   } else {
     return NULL;
   }
