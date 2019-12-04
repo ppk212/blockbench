@@ -5,7 +5,8 @@ using namespace eosio;
 class [[eosio::contract("ioheavy")]] ioheavy : public eosio::contract {
 
 public:
-  ioheavy(name receiver, name code,  datastream<const char*> ds): contract(receiver, code, ds) {}
+  ioheavy(name receiver, name code,  datastream<const char*> ds):
+                                     contract(receiver, code, ds) {}
 
   [[eosio::action]]
   void scan(uint64_t start_key, uint64_t size) {
@@ -22,7 +23,9 @@ public:
   }
 
 private:
-  const char* ALPHABET = "abcdefghijklmnopqrstuvwxy#$%^&*()_+[]{}|;:,./<>?`~abcdefghijklmnopqrstuvwxy#$%^&*()_+[]{}|;:,./<>?`~abcdefghijklmnopqrstuvwxy#$%^&*()_+[]{}|;:,./<>?`~";
+  const char* ALPHABET = "abcdefghijklmnopqrstuvwxy#$%^&*()_+[]{}|;:,./<>?"
+                         "`~abcdefghijklmnopqrstuvwxy#$%^&*()_+[]{}|;:,./<>"
+                         "?`~abcdefghijklmnopqrstuvwxy#$%^&*()_+[]{}|;:,./<>?`~";
 
   std::map<std::string, std::string> store;
  
