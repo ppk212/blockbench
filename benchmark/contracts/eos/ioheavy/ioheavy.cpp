@@ -5,7 +5,6 @@ using namespace eosio;
 class [[eosio::contract("ioheavy")]] ioheavy : public eosio::contract {
 
 public:
-  
   ioheavy(name receiver, name code,  datastream<const char*> ds): contract(receiver, code, ds) {}
 
   [[eosio::action]]
@@ -20,22 +19,6 @@ public:
     for(uint64_t i = 0; i < size; i++) {
 	    store.insert(make_pair(getKey(start_key+i), getVal(start_key+i)));
     }
-  }
-
-  /*[[eosio::action]]
-  void print(uint64_t start_key, uint64_t size) {
-    for(uint64_t i = 0; i < size; i++) {
-	    print(getKey(start_key+i), " : ");//, store.find(getKey(start_key+i)), " / ");
-    }
-  }*/
-
-  [[eosio::action]]
-  void test(uint64_t start_key, uint64_t size) {
-    //for(uint64_t i = 0; i < size; i++) {
-    //  print(store.find(getKey(start_key+i)).toString());
-    //}
-    //print(store.find(getKey(5)).toString());
-    print("HELLO");
   }
 
 private:
