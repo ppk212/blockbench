@@ -4,7 +4,8 @@ using namespace eosio;
 
 class [[eosio::contract("smallbank")]] smallbank : public eosio::contract {
 public:
-  smallbank(name receiver, name code,  datastream<const char*> ds): contract(receiver, code, ds) {}
+  smallbank(name receiver, name code,  datastream<const char*> ds): 
+					contract(receiver, code, ds) {}
 
   [[eosio::action]]
   void almagate(std::string arg0, std::string arg1) {
