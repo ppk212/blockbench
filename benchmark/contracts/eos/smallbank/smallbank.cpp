@@ -3,7 +3,6 @@
 using namespace eosio;
 
 class [[eosio::contract("smallbank")]] smallbank : public eosio::contract {
-
 public:
   smallbank(name receiver, name code,  datastream<const char*> ds): contract(receiver, code, ds) {}
 
@@ -67,10 +66,7 @@ public:
 	  }
   }
 
-
-
 private:
   std::map<std::string, uint64_t> savingStore;
   std::map<std::string, uint64_t> checkingStore;
-
 };
